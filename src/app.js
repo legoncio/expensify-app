@@ -10,18 +10,12 @@ import 'normalize.css/normalize.css'//Browser style normalization so every brows
 import './styles/styles.scss'
 
 const store = configureStore()
-store.subscribe( () => {
-    const state = store.getState()
-    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
-    console.log(visibleExpenses)
-})
+// store.subscribe( () => {
+//     const state = store.getState()
+//     const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
+//     console.log(visibleExpenses)
+// })
 
-store.dispatch(addExpense({description: 'Water bill', amount: 5000, createdAt: 15000}))
-store.dispatch(addExpense({description: 'Gas bill', amount: 2000, createdAt: 600000}))
-store.dispatch(addExpense({description: 'Electricity bill', amount: 600000, createdAt: 2300}))
-store.dispatch(addExpense({description: 'Rent', amount: 18000000, createdAt: 14000}))
-
-console.log(store.getState())
 const jsx = (
     <Provider store={store}>
         <AppRouter/>
