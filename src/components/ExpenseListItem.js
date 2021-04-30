@@ -10,7 +10,7 @@ const ExpenseListItem = (props) => (
                 <h3>{props.description}</h3>
             </Link>
             <p>
-            Amount: {numeral(props.amount / 100).format('$0,0.00')}
+            Amount: {numeral(props.amount / 100).format('$0,0')}
             -
             Created at: {DateTime.fromMillis(props.createdAt).toLocaleString(DateTime.DATE_FULL)}
             </p>
