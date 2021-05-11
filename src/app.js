@@ -3,11 +3,9 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
-import { addExpense } from './actions/expenses'
-import { setFilters } from './actions/filters'
-import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'//Browser style normalization so every browser renders the same thing
 import './styles/styles.scss'
+import './firebase/firebase'
 
 const store = configureStore()
 // store.subscribe( () => {
