@@ -64,3 +64,46 @@ test('Should not edit an expense if expense not found', () => {
     const state = expensesReducer(expenses, action)
     expect(state).toEqual(expenses)
 })
+
+test('should set expenses', () => {
+    let action = {
+        type: 'SET_EXPENSES',
+        expenses
+    }
+
+    const initialState = expensesReducer(expenses, action)
+    expect(initialState).toEqual(expenses)
+
+    const newExpenses = [
+        {
+            id: 'expenseone',
+            description: 'Xbox',
+            amount: 280000000,
+            note: '',
+            createdAt: DateTime.fromObject({year: 2021, month: 2, day: 11, zone: 'locale'}).toMillis() // => 0
+        },
+        {
+            id: 'expensetwo',
+            description: 'Cardo Freecom 4+',
+            amount: 6000000,
+            note: 'Bike intercom update',
+            createdAt: DateTime.fromObject({year: 2021, month: 3, day: 10, zone: 'locale'}).toMillis()
+        },
+        {
+            id: 'expensethree',
+            description: 'Credit card',
+            amount: 185000000,
+            note: 'This months credit card payment',
+            createdAt: DateTime.fromObject({year: 2021, month: 5, day: 17, zone: 'locale'}).toMillis()
+        }
+    ]
+
+    action = {
+        type: 'SET_EXPENSES',
+        expenses: newExpenses
+    }
+
+    const newState = expensesReducer(newExpenses, action)
+
+    expect(newState).toEqual(newExpenses)
+})
