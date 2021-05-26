@@ -1,7 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { startAddExpense, addExpense, editExpense, removeExpense, setExpenses, startSetExpenses } from '../../actions/expenses'
-import { DateTime}  from 'luxon'
+import { startAddExpense, addExpense, editExpense, removeExpense, setExpenses, startSetExpenses, startRemoveExpense } from '../../actions/expenses'
 import expenses from '../fixtures/expenses'
 import database from '../../firebase/firebase'
 
@@ -43,7 +42,7 @@ test('Should setup add expense action object with values', () => {
     })
 })
 
-test('Should add expense to database and store', (done) => {//the donde parameter is to assert async functions. call done() after making the assertion
+test('Should add expense to database and store', (done) => {//the done parameter is to assert async functions. call done() after making the assertion
     const store = createMockStore({})
     const expenseData = {
         description: 'Mouse',
@@ -115,4 +114,15 @@ test('should fetch the expenses from firebase', (done) => {
         })
         done()
     })
+})
+
+test('should remove expense with given id', (done) => {
+    const store = createMockStore({})
+    const id = expenses[0].id
+    store.dispatch(startRemoveExpense({id})).then(() => {
+        return database.ref(`expenses/${id}`).once('value')
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBe(null)//toBeFalsy() also works
+    })
+    done()
 })
