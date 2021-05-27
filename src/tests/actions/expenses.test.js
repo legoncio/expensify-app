@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { startAddExpense, addExpense, editExpense, removeExpense, setExpenses, startSetExpenses, startRemoveExpense } from '../../actions/expenses'
+import { startAddExpense, addExpense, editExpense, removeExpense, setExpenses, startSetExpenses, startRemoveExpense, startEditExpense } from '../../actions/expenses'
 import expenses from '../fixtures/expenses'
 import database from '../../firebase/firebase'
 
@@ -22,6 +22,17 @@ test('Should setup remove expense action object', () => {
     })
 })
 
+test('should remove expense with given id', (done) => {
+    const store = createMockStore({})
+    const id = expenses[0].id
+    store.dispatch(startRemoveExpense({id})).then(() => {
+        return database.ref(`expenses/${id}`).once('value')
+    }).then((snapshot) => {
+        expect(snapshot.val()).toBe(null)//toBeFalsy() also works
+        done()
+    })
+})
+
 test('Should setup edit expense action object', () => {
     const action = editExpense('132abc', { note: 'this is the note', amount: 120 })
     expect(action).toEqual({
@@ -31,6 +42,26 @@ test('Should setup edit expense action object', () => {
             note: 'this is the note',
             amount: 120
         }
+    })
+})
+
+test('should edit expenses from firebase', (done) => {
+    const store = createMockStore({})
+    const expenseUpdates = {
+        amount: 280250000,
+        createdAt: 1612933200000,
+        note: 'Last months rent adjusted to COP'
+    }
+    const id = expenses[1].id
+
+    store.dispatch(startEditExpense(id, expenseUpdates)).then(() => {
+        return database.ref(`expenses/${id}`).once('value')
+    }).then((snapshot) => {
+        expect(snapshot.val()).toEqual({
+            description: expenses[1].description,
+            ...expenseUpdates
+        })
+        done()
     })
 })
 
@@ -114,15 +145,4 @@ test('should fetch the expenses from firebase', (done) => {
         })
         done()
     })
-})
-
-test('should remove expense with given id', (done) => {
-    const store = createMockStore({})
-    const id = expenses[0].id
-    store.dispatch(startRemoveExpense({id})).then(() => {
-        return database.ref(`expenses/${id}`).once('value')
-    }).then((snapshot) => {
-        expect(snapshot.val()).toBe(null)//toBeFalsy() also works
-    })
-    done()
 })
