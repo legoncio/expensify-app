@@ -25,6 +25,7 @@
     "css-loader": "^5.0.2",
     "express": "^4.17.1",
     "firebase": "^8.4.3",
+    "history": "^4.10.1",
     "identity-obj-proxy": "^3.0.0",
     "luxon": "^1.26.0",
     "mini-css-extract-plugin": "^1.5.0",

@@ -7,7 +7,7 @@ exports[`Should render expensify dashboard 1`] = `
     <Link
       to="/"
     >
-      Go home
+      Go to Dashboard
     </Link>
   </p>
 </div>
