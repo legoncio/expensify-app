@@ -8,6 +8,7 @@ import { startSetExpenses } from './actions/expenses'
 import { login, logout } from './actions/auth'
 import 'normalize.css/normalize.css'//Browser style normalization so every browser renders the same thing
 import './styles/styles.scss'
+import LoadingPage from './components/LoadingPage'
 
 const store = configureStore()
 
@@ -24,7 +25,7 @@ const renderApp = () => {
     }
 }
 
-ReactDOM.render(<p>Loading...</p> , document.getElementById('app'))
+ReactDOM.render(<LoadingPage /> , document.getElementById('app'))
 
 
 firebase.auth().onAuthStateChanged((user) => {

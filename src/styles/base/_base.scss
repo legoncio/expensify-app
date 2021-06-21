@@ -1,11 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
 html{
     //multiplication to standarize rem. 1 rem = 16px. 16x62.5 = 10. We now use a 10 based rem system
     font-size: 62.5%;
 }
 
 body {
+    color: $dark-grey;
     font-family: Helvetica, Arial, sans-serif;
     font-size: $m-size;
+    line-height: 1.6;
 }
 
 button {
